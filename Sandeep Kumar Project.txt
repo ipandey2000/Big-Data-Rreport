@@ -1,0 +1,37 @@
+1.Find out the total number of users in this datasheet
+select count(*) from fb;
+
+2.Find out the number of facebook users above the age of 25.
+select count(*) from fb where age>25;
+
+3.Do male facebook users tend to have more friends, or female users?
+select gender,count(fc) from fb group by gender;
+
+
+4.How many likes do young people recieve on facebook opposed to older members.
+select avg(likesrec) from fb where age>=13 AND age<=25;
+select avg(likesrec) from fb where age>35;
+and then tell them to compare
+
+5.Find out the count of facebook users for each birthday month.
+select month,count(*) from fb group by month;
+
+6.Do young members use mobile phones or computers for facebook browsing?
+select avg(mlikes) from fb where age>=13 AND age<=25;
+select avg(weblikes) from fb where age>=13 AND age<=25;
+
+7.Do adult members use mobile phones or computers for facebook browsing?
+select avg(mlikes) from fb where age>35;
+select avg(weblikes) from fb where age>35;
+and then tell them to compare
+
+
+
+
+
+hadoop fs -mkdir facebookdata
+hadoop fs -put pseudo_facebook.csv facebookdata
+hadoop fs -ls facebookdata
+hive
+create table fb(userid int, age int, day int, year int, month int, gender string, tenure int, frndcount int, frndinit int, likes int, likesrecieved int, mlikes int, mlikesrecieved int, weblikes int, weblikesrecieved int) row format delimited fields terminated by ',' stored as textfile location '/user/training/facebookdata/';
+select * from fb limit 3;
